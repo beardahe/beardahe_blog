@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import PostList from '../../components/PostList.astro';
 import Pagination from '../../components/Pagination.astro';
+import ContactLinks from '../../components/ContactLinks.astro';
 import { PAGE_SIZE, sortPostsDesc } from '../../utils/blog';
 
 const allPosts = sortPostsDesc(await getCollection('blog'));
@@ -14,6 +15,7 @@ const totalPages = Math.max(1, Math.ceil(allPosts.length / PAGE_SIZE));
   <section class="stack">
     <h1 class="page-title">全部文章</h1>
     <p class="page-subtitle">共 {allPosts.length} 篇</p>
+    <ContactLinks />
     <PostList posts={posts} emptyText="还没有文章。" />
     <Pagination currentPage={1} totalPages={totalPages} />
   </section>

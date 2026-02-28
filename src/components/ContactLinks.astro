@@ -1,0 +1,14 @@
+---
+const contacts = ['Telegram', 'X'];
+---
+
+<aside class="contact-card" aria-label="联系方式">
+  <p class="contact-title">联系方式</p>
+  <p class="contact-links">
+    {
+      contacts.map((label) => (
+        <span class="chip">{label}</span>
+      ))
+    }
+  </p>
+</aside>

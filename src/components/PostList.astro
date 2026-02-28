@@ -9,6 +9,21 @@ interface Props {
 }
 
 const { posts, emptyText = '暂无文章。' } = Astro.props as Props;
+
+function getPreview(markdown: string, maxLength = 96): string {
+  const plain = markdown
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/^\s*[-*+]\s+/gm, '')
+    .replace(/[`>*_~]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (!plain) return '';
+  if (plain.length <= maxLength) return plain;
+  return `${plain.slice(0, maxLength).trim()}...`;
+}
 ---
 
 {
@@ -19,9 +34,8 @@ const { posts, emptyText = '暂无文章。' } = Astro.props as Props;
       {posts.map((post) => (
         <li class="post-item">
           <h2><a href={withBase(`/blog/${post.slug}/`)}>{post.data.title}</a></h2>
-          <p class="post-meta">
-            {post.data.pubDate.toLocaleDateString('zh-CN')} · {post.data.description}
-          </p>
+          <p class="post-meta">{post.data.pubDate.toLocaleDateString('zh-CN')}</p>
+          {getPreview(post.body) && <p class="post-preview">{getPreview(post.body)}</p>}
           {post.data.tags.length > 0 && (
             <p class="chip-list">
               {post.data.tags.map((tag) => (

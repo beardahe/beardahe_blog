@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import PostList from '../../../components/PostList.astro';
 import Pagination from '../../../components/Pagination.astro';
+import ContactLinks from '../../../components/ContactLinks.astro';
 import { PAGE_SIZE, sortPostsDesc } from '../../../utils/blog';
 
 export async function getStaticPaths() {
@@ -37,6 +38,7 @@ const { posts, currentPage, totalPages } = Astro.props as Props;
   <section class="stack">
     <h1 class="page-title">全部文章</h1>
     <p class="page-subtitle">第 {currentPage} 页，共 {totalPages} 页</p>
+    <ContactLinks />
     <PostList posts={posts} emptyText="这一页没有文章。" />
     <Pagination currentPage={currentPage} totalPages={totalPages} />
   </section>

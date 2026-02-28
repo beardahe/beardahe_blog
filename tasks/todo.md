@@ -143,3 +143,15 @@
 - 已导入 4 篇文章：`the-first-post.md`、`helloworld.md`、`上学了.md`、`童年.md`。
 - 已将原 TOML frontmatter（`+++`）转换为 YAML frontmatter（`---`），并补齐 `description/pubDate/tags`。
 - 构建验证通过（`npm run build`），文章详情与标签页面已正常生成。
+
+## Task: 博客联系方式（2026-02-28）
+- [x] 1. 新增联系方式组件（Telegram / X）
+- [x] 2. 在博客列表页、分页页、详情页接入
+- [x] 3. 增加简约风格样式
+- [x] 4. 构建验证
+
+### Task Review
+- 新增组件：`src/components/ContactLinks.astro`，包含 Telegram 与 X 外链入口（新标签页打开）。
+- 已接入页面：`/blog`、`/blog/page/[page]`、`/blog/[slug]`。
+- 样式收敛：在 `src/styles/theme.css` 新增联系方式卡片样式（`contact-card/contact-title/contact-links`），保持现有简约主题一致。
+- 构建验证通过：`npm run build` 成功。
