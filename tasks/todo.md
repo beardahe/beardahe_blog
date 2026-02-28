@@ -111,3 +111,15 @@
 - Actions 部署流水线执行成功：`Deploy to GitHub Pages`，run id `22523162534`，结论 `success`。
 - 实测线上站点可访问：`curl -I https://beardahe.github.io/beardahe_blog/` 返回 `HTTP/2 200`。
 - 修复了一处 `base` 链接拼接问题，确保链接为 `/beardahe_blog/...` 正确形式。
+
+## Task: 跟随系统深浅色模式（2026-02-28）
+- [x] 1. 在全局主题变量中加入 dark mode 分支（`prefers-color-scheme`）
+- [x] 2. 替换硬编码浅色值为主题变量，确保深色模式可读
+- [x] 3. 增加浏览器 `theme-color`（light/dark）
+- [x] 4. 构建验证产物并检查关键样式标记
+
+### Task Review
+- `src/styles/theme.css` 已支持自动跟随系统深浅色：`@media (prefers-color-scheme: dark)` 下覆盖颜色变量。
+- 代码块、卡片边框、顶部栏等由固定浅色值改为变量驱动，避免 dark mode 下对比异常。
+- `src/layouts/Layout.astro` 新增双 `theme-color` 元信息，移动端浏览器地址栏颜色可跟随系统模式。
+- 验证通过：`npm run build` 成功，产物中包含 `prefers-color-scheme`、`color-scheme` 与 `theme-color` 标记。

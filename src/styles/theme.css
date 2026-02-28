@@ -4,7 +4,27 @@
   --muted: #666;
   --line: #ececec;
   --link: #111;
+  --surface: #fff;
+  --surface-2: #f6f6f6;
+  --surface-3: #fafafa;
+  --border-strong: #cfcfcf;
   --max-w: 760px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1115;
+    --text: #e7e9ec;
+    --muted: #a1a8b1;
+    --line: #2a3139;
+    --link: #f4f6f8;
+    --surface: #12161c;
+    --surface-2: #161b22;
+    --surface-3: #141a21;
+    --border-strong: #5b6573;
+    color-scheme: dark;
+  }
 }
 
 *,
@@ -60,8 +80,8 @@ ol {
 }
 
 code {
-  background: #f6f6f6;
-  border: 1px solid #ededed;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
   border-radius: 0.35rem;
   padding: 0.05rem 0.35rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
@@ -82,7 +102,7 @@ hr {
 
 .site-header {
   border-bottom: 1px solid var(--line);
-  background: #fff;
+  background: var(--surface);
 }
 
 .header-inner {
@@ -163,7 +183,7 @@ hr {
 }
 
 .link-btn:hover {
-  border-color: #cfcfcf;
+  border-color: var(--border-strong);
 }
 
 .back-link {
@@ -217,7 +237,7 @@ hr {
 }
 
 .chip:hover {
-  border-color: #cfcfcf;
+  border-color: var(--border-strong);
 }
 
 .pager {
@@ -290,7 +310,7 @@ hr {
   padding: 0.8rem;
   border-radius: 0.5rem;
   border: 1px solid var(--line);
-  background: #fafafa;
+  background: var(--surface-3);
 }
 
 .prose blockquote {
