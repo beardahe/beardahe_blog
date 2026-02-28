@@ -1,0 +1,37 @@
+---
+interface Props {
+	title?: string;
+}
+
+import '../styles/theme.css';
+import { withBase } from '../utils/links';
+
+const { title = 'Dahe Blog' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+		<link rel="icon" href={withBase('/favicon.ico')} />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<header class="site-header">
+			<div class="container header-inner">
+				<a class="site-title" href={withBase('/')}>Dahe Blog</a>
+				<nav class="site-nav" aria-label="主导航">
+					<a href={withBase('/blog/')}>博客</a>
+					<a href={withBase('/tags/')}>标签</a>
+					<a href={withBase('/visit/')}>访问页</a>
+				</nav>
+			</div>
+		</header>
+		<main class="container page">
+			<slot />
+		</main>
+	</body>
+</html>

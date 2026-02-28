@@ -1,0 +1,36 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getTagSlug } from '../utils/blog';
+import { withBase } from '../utils/links';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  emptyText?: string;
+}
+
+const { posts, emptyText = '暂无文章。' } = Astro.props as Props;
+---
+
+{
+  posts.length === 0 ? (
+    <p class="muted">{emptyText}</p>
+  ) : (
+    <ul class="post-list">
+      {posts.map((post) => (
+        <li class="post-item">
+          <h2><a href={withBase(`/blog/${post.slug}/`)}>{post.data.title}</a></h2>
+          <p class="post-meta">
+            {post.data.pubDate.toLocaleDateString('zh-CN')} · {post.data.description}
+          </p>
+          {post.data.tags.length > 0 && (
+            <p class="chip-list">
+              {post.data.tags.map((tag) => (
+                <a class="chip" href={withBase(`/tags/${getTagSlug(tag)}/`)}>#{tag}</a>
+              ))}
+            </p>
+          )}
+        </li>
+      ))}
+    </ul>
+  )
+}

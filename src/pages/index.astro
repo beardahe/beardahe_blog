@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import PostList from '../components/PostList.astro';
+import { sortPostsDesc } from '../utils/blog';
+import { withBase } from '../utils/links';
+
+const posts = sortPostsDesc(await getCollection('blog'));
+const latestPosts = posts.slice(0, 5);
+---
+
+<Layout title="首页 | Dahe Blog">
+  <section class="stack-lg">
+    <header>
+      <h1 class="page-title">简约博客</h1>
+      <p class="page-subtitle">白色主题，内容优先。</p>
+    </header>
+
+    <p class="quick-links">
+      <a class="link-btn" href={withBase('/blog/')}>查看全部文章</a>
+      <a class="link-btn" href={withBase('/tags/')}>浏览标签</a>
+    </p>
+
+    <section class="stack">
+      <h2 class="section-title">最新文章</h2>
+      <PostList posts={latestPosts} emptyText="还没有文章。" />
+    </section>
+  </section>
+</Layout>

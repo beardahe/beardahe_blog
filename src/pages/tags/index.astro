@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { getTagGroups, sortPostsDesc } from '../../utils/blog';
+import { withBase } from '../../utils/links';
+
+const posts = sortPostsDesc(await getCollection('blog'));
+const tags = getTagGroups(posts);
+---
+
+<Layout title="标签 | Dahe Blog">
+  <section class="stack">
+    <h1 class="page-title">标签</h1>
+    {
+      tags.length === 0 ? (
+        <p class="muted">还没有标签。</p>
+      ) : (
+        <ul class="tag-list">
+          {tags.map((tag) => (
+            <li>
+              <a href={withBase(`/tags/${tag.slug}/`)}>
+                <span>#{tag.name}</span>
+                <span class="muted">{tag.count}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</Layout>

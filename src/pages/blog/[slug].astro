@@ -1,0 +1,46 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { getTagSlug } from '../../utils/blog';
+import { withBase } from '../../utils/links';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+type Props = {
+  post: CollectionEntry<'blog'>;
+};
+
+const { post } = Astro.props as Props;
+const { Content } = await post.render();
+---
+
+<Layout title={`${post.data.title} | Dahe Blog`}>
+  <article class="stack-lg">
+    <p><a class="back-link" href={withBase('/blog/')}>← 返回博客</a></p>
+    <h1 class="page-title">{post.data.title}</h1>
+    <p class="page-subtitle">
+      发布于 {post.data.pubDate.toLocaleDateString('zh-CN')}
+      {post.data.updatedDate && <span> · 更新于 {post.data.updatedDate.toLocaleDateString('zh-CN')}</span>}
+    </p>
+    {
+      post.data.tags.length > 0 && (
+        <p class="chip-list">
+          {post.data.tags.map((tag) => (
+            <a class="chip" href={withBase(`/tags/${getTagSlug(tag)}/`)}>#{tag}</a>
+          ))}
+        </p>
+      )
+    }
+    <hr />
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</Layout>

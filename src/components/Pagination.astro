@@ -1,0 +1,26 @@
+---
+import { withBase } from '../utils/links';
+
+interface Props {
+  currentPage: number;
+  totalPages: number;
+}
+
+const { currentPage, totalPages } = Astro.props as Props;
+
+function pageUrl(page: number): string {
+  return page === 1 ? withBase('/blog/') : withBase(`/blog/page/${page}/`);
+}
+---
+
+{
+  totalPages > 1 && (
+    <nav class="pager" aria-label="文章分页">
+      {currentPage > 1 ? <a href={pageUrl(currentPage - 1)}>上一页</a> : <span class="muted">上一页</span>}
+      <span>
+        第 {currentPage} / {totalPages} 页
+      </span>
+      {currentPage < totalPages ? <a href={pageUrl(currentPage + 1)}>下一页</a> : <span class="muted">下一页</span>}
+    </nav>
+  )
+}

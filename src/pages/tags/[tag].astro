@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import PostList from '../../components/PostList.astro';
+import { getTagSlug, sortPostsDesc } from '../../utils/blog';
+import { withBase } from '../../utils/links';
+
+export async function getStaticPaths() {
+  const posts = sortPostsDesc(await getCollection('blog'));
+  const grouped = new Map<string, { tagName: string; posts: CollectionEntry<'blog'>[] }>();
+
+  for (const post of posts) {
+    for (const rawTag of post.data.tags) {
+      const tagName = rawTag.trim();
+      if (!tagName) continue;
+      const slug = getTagSlug(tagName);
+
+      const item = grouped.get(slug);
+      if (item) {
+        item.posts.push(post);
+      } else {
+        grouped.set(slug, { tagName, posts: [post] });
+      }
+    }
+  }
+
+  return Array.from(grouped.entries()).map(([slug, value]) => ({
+    params: { tag: slug },
+    props: {
+      tagName: value.tagName,
+      posts: value.posts,
+    },
+  }));
+}
+
+type Props = {
+  tagName: string;
+  posts: CollectionEntry<'blog'>[];
+};
+
+const { tagName, posts } = Astro.props as Props;
+---
+
+<Layout title={`标签 #${tagName} | Dahe Blog`}>
+  <section class="stack">
+    <p><a class="back-link" href={withBase('/tags/')}>← 返回标签页</a></p>
+    <h1 class="page-title">#{tagName}</h1>
+    <p class="page-subtitle">共 {posts.length} 篇文章</p>
+    <PostList posts={posts} emptyText="这个标签下还没有文章。" />
+  </section>
+</Layout>

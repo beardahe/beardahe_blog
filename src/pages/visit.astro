@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { withBase } from '../utils/links';
+---
+
+<Layout title="访问页 | Dahe Blog">
+  <section class="stack">
+    <h1 class="page-title">访问页面</h1>
+    <p class="page-subtitle">该页面用于快速验证路由可访问。</p>
+    <ul>
+      <li>地址：<code>/visit</code></li>
+      <li><a href={withBase('/')}>返回首页</a></li>
+    </ul>
+  </section>
+</Layout>
