@@ -95,12 +95,19 @@
 - [x] 1. 补齐 GitHub Pages 部署配置（Astro config + Actions）
 - [x] 2. 修复项目站点 `base` 下的链接兼容（避免 Pages 子路径 404）
 - [x] 3. 初始化本地 Git 并提交当前项目
-- [ ] 4. 在 GitHub 创建 `beardahe_blog` 仓库并推送
-- [ ] 5. 完成 GitHub Pages 启用与部署验证
+- [x] 4. 在 GitHub 创建 `beardahe_blog` 仓库并推送
+- [x] 5. 完成 GitHub Pages 启用与部署验证
 
 ### Plan Validation
 - [x] 方案确认：先完成本地可执行项，再执行远端仓库创建与部署，减少外部依赖失败重试成本。
 
 ### Progress
-- 当前阻塞：`gh auth status` 显示未登录，`gh repo create` 返回要求先执行 `gh auth login`。
-- 本地状态：已完成首个提交，提交哈希 `378111b`。
+- 授权完成：已通过 `gh auth login` 完成账号 `beardahe` 登录（Git 协议 `ssh`）。
+- 仓库创建：`https://github.com/beardahe/beardahe_blog`。
+- 推送完成：`main` 分支已推送并建立跟踪。
+- Pages 状态：`build_type=workflow`，站点地址 `https://beardahe.github.io/beardahe_blog/`。
+
+### Task Review
+- Actions 部署流水线执行成功：`Deploy to GitHub Pages`，run id `22523162534`，结论 `success`。
+- 实测线上站点可访问：`curl -I https://beardahe.github.io/beardahe_blog/` 返回 `HTTP/2 200`。
+- 修复了一处 `base` 链接拼接问题，确保链接为 `/beardahe_blog/...` 正确形式。
