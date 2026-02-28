@@ -92,11 +92,15 @@
   - 残留页面级样式扫描仅命中模板示例组件 `src/components/Welcome.astro`（未接入当前页面）。
 
 ## Task: GitHub 仓库与部署（2026-02-28）
-- [ ] 1. 补齐 GitHub Pages 部署配置（Astro config + Actions）
-- [ ] 2. 修复项目站点 `base` 下的链接兼容（避免 Pages 子路径 404）
-- [ ] 3. 初始化本地 Git 并提交当前项目
+- [x] 1. 补齐 GitHub Pages 部署配置（Astro config + Actions）
+- [x] 2. 修复项目站点 `base` 下的链接兼容（避免 Pages 子路径 404）
+- [x] 3. 初始化本地 Git 并提交当前项目
 - [ ] 4. 在 GitHub 创建 `beardahe_blog` 仓库并推送
 - [ ] 5. 完成 GitHub Pages 启用与部署验证
 
 ### Plan Validation
 - [x] 方案确认：先完成本地可执行项，再执行远端仓库创建与部署，减少外部依赖失败重试成本。
+
+### Progress
+- 当前阻塞：`gh auth status` 显示未登录，`gh repo create` 返回要求先执行 `gh auth login`。
+- 本地状态：已完成首个提交，提交哈希 `378111b`。
