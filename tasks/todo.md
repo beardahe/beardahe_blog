@@ -123,3 +123,23 @@
 - 代码块、卡片边框、顶部栏等由固定浅色值改为变量驱动，避免 dark mode 下对比异常。
 - `src/layouts/Layout.astro` 新增双 `theme-color` 元信息，移动端浏览器地址栏颜色可跟随系统模式。
 - 验证通过：`npm run build` 成功，产物中包含 `prefers-color-scheme`、`color-scheme` 与 `theme-color` 标记。
+
+## Task: 删除测试文章（2026-02-28）
+- [x] 1. 删除 `src/content/blog` 下所有示例 markdown 文章
+- [x] 2. 保留目录结构（新增 `.gitkeep`）
+- [x] 3. 构建验证无文章场景
+
+### Task Review
+- 已删除原有 6 篇示例文章，仅保留 `src/content/blog/.gitkeep`。
+- 强制构建验证（`npx astro build --force`）通过，`blog` 集合为空时站点仍可构建与访问。
+
+## Task: 导入桌面文章（2026-02-28）
+- [x] 1. 识别并读取桌面上的 4 个 `.md` 文件
+- [x] 2. 转换为 Astro 内容集合兼容 frontmatter（YAML）
+- [x] 3. 导入到 `src/content/blog` 并保留正文内容
+- [x] 4. 构建验证文章路由与标签路由生成
+
+### Task Review
+- 已导入 4 篇文章：`the-first-post.md`、`helloworld.md`、`上学了.md`、`童年.md`。
+- 已将原 TOML frontmatter（`+++`）转换为 YAML frontmatter（`---`），并补齐 `description/pubDate/tags`。
+- 构建验证通过（`npm run build`），文章详情与标签页面已正常生成。
